@@ -1,0 +1,16 @@
+codigo_rubrica,designacao,dotacao,gasto,fornecedor,requisicao,justificativo,ordem_pagamento,valor,data
+47/H000/1.1.2.1.01,Ajudas de Custo dentro do Pais,7303380,1498800,Lucia de Fatima M Braz,/OF/2024,Guia nº 00,OP20220000124,6000,2024-03-05
+47/H000/1.1.2.1.01,Ajudas de Custo dentro do Pais,7303380,1498800,Sergio Cacholote Nareia,/OF/2024,Guia nº 00,OP20220000123,6000,2024-03-05
+47/H000/1.1.2.1.01,Ajudas de Custo dentro do Pais,7303380,1498800,Sergio Manuel Gonsalo,/OF/2024,Guia nº 74,OP20220000131,31800,2024-03-12
+47/H000/1.1.2.1.01,Ajudas de Custo dentro do Pais,7303380,1498800,Maria Joana Silva,/OF/2024,Guia nº 85,OP20220000145,12000,2024-03-18
+47/H000/1.1.2.1.01,Ajudas de Custo dentro do Pais,7303380,1498800,Joao Carlos Mendes,/OF/2024,Guia nº 92,OP20220000156,8500,2024-03-25
+47/H000/1.1.2.1.99,Outras Despesas Pessoal,3900000,571994.01,Empresa de Recursos Humanos Lda,RH/2024/001,Fatura nº 12345,OP20220000201,250000,2024-02-15
+47/H000/1.1.2.1.99,Outras Despesas Pessoal,3900000,571994.01,Consultoria Empresarial SA,CONS/2024/003,Fatura nº 67890,OP20220000215,180000,2024-02-28
+47/H000/1.1.2.1.99,Outras Despesas Pessoal,3900000,571994.01,Formacao Profissional Ltda,FORM/2024/007,Fatura nº 54321,OP20220000230,141994.01,2024-03-10
+1.2.1,Bens,2169440,0,,,,,,
+1.2.2,Servicos,1500000,750000,Servicos de Limpeza Pro,SLP/2024/001,Fatura nº 98765,OP20220000301,150000,2024-01-15
+1.2.2,Servicos,1500000,750000,Seguranca Total SA,SEG/2024/002,Fatura nº 13579,OP20220000315,300000,2024-02-01
+1.2.2,Servicos,1500000,750000,Manutencao Informatica Lda,IT/2024/005,Fatura nº 24680,OP20220000325,200000,2024-02-15
+1.2.2,Servicos,1500000,750000,Consultoria Juridica Advogados,JUR/2024/001,Fatura nº 11223,OP20220000340,100000,2024-03-01
+1.3.1,Manutencao e Reparacoes,800000,120000,Reparacoes e Manutencao Geral,MAN/2024/003,Fatura nº 99887,OP20220000401,80000,2024-01-20
+1.3.1,Manutencao e Reparacoes,800000,120000,Equipamentos Industriais SA,EQU/2024/001,Fatura nº 55443,OP20220000415,40000,2024-02-10

@@ -1,0 +1,4 @@
+codigo_rubrica,designacao,dotacao,gasto,fornecedor,requisicao,justificativo,ordem_pagamento,valor,data
+TEST/001,Nova Rubrica Teste,100000,0,Fornecedor Teste,REQ/001,Justificativo Teste,OP001,5000,2024-04-01
+TEST/001,Nova Rubrica Teste,100000,0,Outro Fornecedor,REQ/002,Justificativo Teste 2,OP002,3000,2024-04-02
+TEST/002,Segunda Rubrica Teste,50000,0,Fornecedor Exemplo,REQ/003,Justificativo Exemplo,OP003,2500,2024-04-03

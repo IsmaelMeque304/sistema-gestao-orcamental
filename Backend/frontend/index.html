@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Contabil - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="container">
+        <!-- Layout de Duas Colunas -->
+        <div class="two-column-layout">
+            <!-- Coluna Esquerda: República e Informações -->
+            <div class="left-column">
+                <div class="left-content">
+                    <div class="logo-container">
+                        <img src="img/republic.png" alt="Brasão de Moçambique" class="logo">
+                    </div>
+                    <div class="org-info">
+                        <h1>República de Moçambique</h1>
+                        <h2>Província de Sofala</h2>
+                        <h3>Serviço Provincial de Infra-estruturas</h3>
+                        <h4>Departamento de Administração e Recursos Humanos</h4>
+                        <h5>Repartição de Administração e Finanças</h5>
+                    </div>
+                    <div class="code-container">
+                        <span class="code-label">Código:</span>
+                        <span class="code-value" id="orgCode">47H001241</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Formulário de Login -->
+            <div class="right-column">
+                <div class="right-content">
+                    <div class="login-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <i class='bx bx-lock-alt'></i>
+                                Acesso ao Sistema
+                            </h2>
+                            <p class="section-subtitle">Entre com suas credenciais para continuar</p>
+                        </div>
+                        
+                        <div class="error" id="error"></div>
+                        
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="username">Usuário</label>
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    name="username" 
+                                    placeholder="Digite seu usuário"
+                                    required
+                                    autocomplete="username"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="Digite sua senha"
+                                    required
+                                    autocomplete="current-password"
+                                >
+                            </div>
+                            <button type="submit" id="submitBtn" class="btn-submit">
+                                <i class='bx bx-log-in'></i>
+                                Entrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Setup de Dotação -->
+    <div id="dotacaoModal" class="modal"></div>
+    
+    <script>
+        const API_BASE = window.location.origin;
+        
+        // Verifica se já está logado
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = 'dashboard.html';
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const errorDiv = document.getElementById('error');
+            
+            submitBtn.disabled = true;
+            errorDiv.classList.remove('show');
+            
+            try {
+                const formData = new FormData();
+                formData.append('username', username);
+                formData.append('password', password);
+                
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Erro ao fazer login');
+                }
+                
+                const data = await response.json();
+                
+                // LOGS VISÍVEIS NO CONSOLE
+                console.log('%c=== DADOS DO LOGIN ===', 'color: blue; font-size: 16px; font-weight: bold;');
+                console.log('Resposta completa da API:', data);
+                console.log('User object:', data.user);
+                
+                const token = data.access_token;
+                if (!token) {
+                    console.error('ERRO: Token não recebido!');
+                    return;
+                }
+                
+                localStorage.setItem('token', token);
+                console.log('Token salvo no localStorage');
+                
+                // Decodificar token JWT para ver os dados
+                try {
+                    const parts = token.split('.');
+                    console.log('Partes do token:', parts.length);
+                    
+                    if (parts.length === 3) {
+                        const header = JSON.parse(atob(parts[0]));
+                        const payload = JSON.parse(atob(parts[1]));
+                        
+                        console.log('%c=== HEADER DO TOKEN ===', 'color: green; font-size: 14px; font-weight: bold;');
+                        console.table(header);
+                        
+                        console.log('%c=== PAYLOAD DO TOKEN JWT (DECODIFICADO) ===', 'color: green; font-size: 14px; font-weight: bold;');
+                        console.table(payload);
+                        console.log('Payload completo (objeto):', payload);
+                        console.log('Username (sub):', payload.sub);
+                        console.log('Expiração (exp):', payload.exp);
+                        if (payload.exp) {
+                            console.log('Data de expiração:', new Date(payload.exp * 1000));
+                        }
+                        console.log('Todos os campos disponíveis:', Object.keys(payload));
+                        console.log('%c===========================', 'color: green; font-size: 14px; font-weight: bold;');
+                        
+                        // Mostrar todos os valores de forma organizada
+                        console.log('%c=== TODOS OS VALORES DO PAYLOAD ===', 'color: orange; font-size: 14px; font-weight: bold;');
+                        for (const [key, value] of Object.entries(payload)) {
+                            console.log(`  ${key}:`, value, typeof value === 'object' ? JSON.stringify(value) : '');
+                        }
+                        
+                        // Verificar se há dados de usuário no payload
+                        if (payload.nome || payload.name) {
+                            console.log('%c✓ Nome encontrado no token!', 'color: green; font-weight: bold;');
+                        } else {
+                            console.log('%c✗ Nome NÃO encontrado no token. Usando username (sub).', 'color: orange; font-weight: bold;');
+                        }
+                    } else {
+                        console.error('Token inválido: não tem 3 partes');
+                    }
+                } catch (e) {
+                    console.error('%cERRO ao decodificar token:', 'color: red; font-size: 14px; font-weight: bold;', e);
+                    console.error('Stack:', e.stack);
+                }
+                
+                // Verifica se existe dotação global para o exercício atual
+                await checkDotacaoGlobal();
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.classList.add('show');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Verifica dotação global após login
+        async function checkDotacaoGlobal() {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            
+            const currentYear = new Date().getFullYear();
+            
+            try {
+                const response = await fetch(
+                    `${API_BASE}/api/v1/dotacao_global?exercicio=${currentYear}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao verificar dotação');
+                }
+                
+                const data = await response.json();
+                
+                // Se não existe dotação (id = 0 ou valor_anual = 0), mostra modal
+                if (!data.id || data.id === 0 || data.valor_anual === 0) {
+                    showDotacaoModal(currentYear);
+                } else {
+                    // Dotação existe, redireciona para dashboard
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.error('Erro ao verificar dotação:', error);
+                // Em caso de erro, redireciona normalmente
+                window.location.href = 'dashboard.html';
+            }
+        }
+        
+        // Mostra modal de setup de dotação
+        function showDotacaoModal(exercicio) {
+            const modal = document.getElementById('dotacaoModal');
+            modal.className = 'modal show';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2>Configurar Dotação Orçamental</h2>
+                    <p>É necessário definir a dotação orçamental global para o exercício ${exercicio} antes de continuar.</p>
+                    <form id="dotacaoModalForm">
+                        <div class="form-group">
+                            <label>Valor Anual (MZN) *</label>
+                            <input type="number" id="modalValorAnual" step="0.01" min="0" required placeholder="Ex: 19472820.00">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição (opcional)</label>
+                            <input type="text" id="modalDescricao" placeholder="Ex: Dotação aprovada para 2024">
+                        </div>
+                        <div class="error" id="modalError"></div>
+                        <div style="display: flex; gap: 10px; margin-top: 20px;">
+                            <button type="submit" class="btn" style="flex: 1;">Salvar e Continuar</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.getElementById('dotacaoModalForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const token = localStorage.getItem('token');
+                const valorAnual = parseFloat(document.getElementById('modalValorAnual').value);
+                const errorDiv = document.getElementById('modalError');
+                
+                try {
+                    const response = await fetch(`${API_BASE}/api/v1/dotacao_global`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            exercicio: exercicio,
+                            valor_anual: valorAnual
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.detail || 'Erro ao salvar dotação');
+                    }
+                    
+                    // Sucesso, remove modal e redireciona
+                    modal.className = 'modal';
+                    modal.innerHTML = '';
+                    window.location.href = 'dashboard.html';
+                    
+                } catch (error) {
+                    errorDiv.textContent = error.message;
+                    errorDiv.classList.add('show');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

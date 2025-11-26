@@ -1,0 +1,12 @@
+/* Base.css - Estilos base para template limpo */
+
+/* Estilos básicos já estão em common.css */
+/* Este arquivo serve para estilos específicos da base.html se necessário */
+
+#main-content {
+    min-height: 400px;
+    padding: 20px 0;
+}
+
+/* Adicionar estilos específicos da base aqui se necessário */
+

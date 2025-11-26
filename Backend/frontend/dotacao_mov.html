@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/rubricas.css">
+    <title>Histórico de Movimentos - Sistema Contabil</title>
+    <style>
+        .tipo-badge {
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .tipo-ajuste {
+            background: var(--light-primary);
+            color: var(--primary);
+        }
+        .tipo-despesa_confirmada {
+            background: var(--light-warning);
+            color: var(--warning);
+        }
+        .tipo-despesa_cancelada {
+            background: var(--light-danger);
+            color: var(--danger);
+        }
+        .tipo-reserva {
+            background: var(--light-warning);
+            color: var(--warning);
+        }
+        .tipo-reserva_cancelada {
+            background: var(--light-success);
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <main>
+            <!-- Toolbar com Filtros e Ações -->
+            <div class="rubricas__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Histórico de Movimentos</h1>
+                    <div class="toolbar-actions">
+                        <span class="tooltip-container">
+                            <button id="btnAtualizar" class="btn btn--secondary">
+                                <i class='bx bx-refresh'></i> Atualizar
+                            </button>
+                            <span class="tooltip tooltip--bottom">Atualizar lista<br/>Recarrega os movimentos com os filtros aplicados</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="rubricas__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="exercicioSelector" class="filter-label">Exercício</label>
+                            <select id="exercicioSelector" class="form-control" aria-label="Selecionar exercício">
+                                <!-- Preenchido via JS -->
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="tipoFiltro" class="filter-label">Tipo</label>
+                            <select id="tipoFiltro" class="form-control" aria-label="Filtrar por tipo">
+                                <option value="">Todos</option>
+                                <option value="ajuste">Ajuste</option>
+                                <option value="despesa_confirmada">Despesa Confirmada</option>
+                                <option value="despesa_cancelada">Despesa Cancelada</option>
+                                <option value="reserva">Reserva</option>
+                                <option value="reserva_cancelada">Reserva Cancelada</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="limitSelector" class="filter-label">Limite</label>
+                            <select id="limitSelector" class="form-control" aria-label="Limite de registros">
+                                <option value="50">50</option>
+                                <option value="100" selected>100</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabela de Movimentos -->
+            <div class="rubricas__table-section">
+                <div class="table-container">
+                    <table class="rubricas-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th class="text-right">Valor</th>
+                                <th>Referência</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movimentosBody">
+                            <tr>
+                                <td colspan="5" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-history'></i>
+                                        <p>Carregando movimentos...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Paginação -->
+            <div class="pagination-container" id="pagination" style="display: none;">
+                <button id="prevBtn" class="btn btn--secondary" onclick="previousPage()">
+                    <i class='bx bx-chevron-left'></i> Anterior
+                </button>
+                <span id="pageInfo" class="pagination-info">Página 1</span>
+                <button id="nextBtn" class="btn btn--secondary" onclick="nextPage()">
+                    Próxima <i class='bx bx-chevron-right'></i>
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/dotacao_mov.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                initLayout('movimentos');
+            }
+        });
+    </script>
+</body>
+</html>

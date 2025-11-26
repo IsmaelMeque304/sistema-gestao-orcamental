@@ -1,0 +1,145 @@
+[
+  {
+    "tipo": "categoria",
+    "designacao": "DEMAIS DESPESAS COM PESSOAL",
+    "classificacao": "1.1",
+    "subcategorias": [
+      {
+        "designacao": "Ajudas de Custo dentro do País",
+        "classificacao": "47/H000/1.1.2.1.01",
+        "dotacao": 45000000,
+        "liquidacao_anterior": 22000000,
+        "durante_mes": 8500000,
+        "gasto_total": 30500000,
+        "saldo_livre": 14500000
+      },
+      {
+        "designacao": "Outras Despesas de Pessoal",
+        "classificacao": "47/H000/1.1.2.1.99",
+        "dotacao": 24000000,
+        "liquidacao_anterior": 15400000,
+        "durante_mes": 1980000,
+        "gasto_total": 17380000,
+        "saldo_livre": 6620000
+      }
+    ]
+  },
+  {
+    "tipo": "categoria",
+    "designacao": "BENS",
+    "classificacao": "1.2",
+    "subcategorias": [
+      {
+        "designacao": "Aquisição de Bens",
+        "classificacao": "1.2.1",
+        "dotacao": 13350000,
+        "liquidacao_anterior": 0,
+        "durante_mes": 0,
+        "gasto_total": 0,
+        "saldo_livre": 13350000
+      },
+      {
+        "designacao": "Combustível e Lubrificantes",
+        "classificacao": "47/H000/1.2.1.0.01",
+        "dotacao": 7200000,
+        "liquidacao_anterior": 2900000,
+        "durante_mes": 3050000,
+        "gasto_total": 5950000,
+        "saldo_livre": 1250000
+      },
+      {
+        "designacao": "Material de Escritório",
+        "classificacao": "1.2.1.1",
+        "dotacao": 3080000,
+        "liquidacao_anterior": 925000,
+        "durante_mes": 462500,
+        "gasto_total": 1387500,
+        "saldo_livre": 1692500
+      },
+      {
+        "designacao": "Equipamentos Informáticos",
+        "classificacao": "1.2.1.2",
+        "dotacao": 7400000,
+        "liquidacao_anterior": 3700000,
+        "durante_mes": 1233333,
+        "gasto_total": 4933333,
+        "saldo_livre": 2466667
+      }
+    ]
+  },
+  {
+    "tipo": "categoria",
+    "designacao": "SERVIÇOS",
+    "classificacao": "1.2.2",
+    "subcategorias": [
+      {
+        "designacao": "Contratação de Serviços",
+        "classificacao": "1.2.2",
+        "dotacao": 9250000,
+        "liquidacao_anterior": 3700000,
+        "durante_mes": 925000,
+        "gasto_total": 4625000,
+        "saldo_livre": 4625000
+      },
+      {
+        "designacao": "Serviços de Limpeza",
+        "classificacao": "1.2.2.1",
+        "dotacao": 1850000,
+        "liquidacao_anterior": 925000,
+        "durante_mes": 185000,
+        "gasto_total": 1110000,
+        "saldo_livre": 740000
+      },
+      {
+        "designacao": "Serviços de Segurança",
+        "classificacao": "1.2.2.2",
+        "dotacao": 3700000,
+        "liquidacao_anterior": 1850000,
+        "durante_mes": 370000,
+        "gasto_total": 2220000,
+        "saldo_livre": 1480000
+      }
+    ]
+  },
+  {
+    "tipo": "categoria",
+    "designacao": "MANUTENÇÃO E REPARAÇÕES",
+    "classificacao": "1.3",
+    "subcategorias": [
+      {
+        "designacao": "Manutenção e Reparações",
+        "classificacao": "1.3.1",
+        "dotacao": 4930000,
+        "liquidacao_anterior": 493000,
+        "durante_mes": 246500,
+        "gasto_total": 739500,
+        "saldo_livre": 4190500
+      }
+    ]
+  },
+  {
+    "tipo": "categoria",
+    "designacao": "FORMAÇÃO E CAPACITAÇÃO",
+    "classificacao": "1.4",
+    "subcategorias": [
+      {
+        "designacao": "Formação e Capacitação",
+        "classificacao": "1.4.1",
+        "dotacao": 4930000,
+        "liquidacao_anterior": 1232500,
+        "durante_mes": 616250,
+        "gasto_total": 1848750,
+        "saldo_livre": 3081250
+      },
+      {
+        "designacao": "Despesas de Viagem",
+        "classificacao": "1.4.2",
+        "dotacao": 2465000,
+        "liquidacao_anterior": 616250,
+        "durante_mes": 308125,
+        "gasto_total": 924375,
+        "saldo_livre": 1540625
+      }
+    ]
+  }
+]

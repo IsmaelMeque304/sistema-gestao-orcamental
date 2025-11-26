@@ -1,0 +1,20 @@
+[
+  {
+    "designacao": "Teste - Nova Rubrica",
+    "classificacao": "TEST/001",
+    "dotacao": 616000,
+    "liquidacao_anterior": 0,
+    "durante_mes": 154000,
+    "gasto_total": 154000,
+    "saldo_livre": 462000
+  },
+  {
+    "designacao": "Teste - Segunda Rubrica",
+    "classificacao": "TEST/002",
+    "dotacao": 308000,
+    "liquidacao_anterior": 61600,
+    "durante_mes": 92400,
+    "gasto_total": 154000,
+    "saldo_livre": 154000
+  }
+]

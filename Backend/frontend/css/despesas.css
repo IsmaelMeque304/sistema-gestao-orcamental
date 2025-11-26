@@ -1,0 +1,706 @@
+/* Estilos específicos para página de Despesas */
+
+/* Desabilitar scroll no body/main */
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.content main {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: calc(100vh - 56px) !important; /* Altura total menos navbar */
+    max-height: calc(100vh - 56px) !important;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* ============================================================================
+   Toolbar (Filtros + Ações)
+   ============================================================================ */
+
+.despesas__toolbar-section {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-width: 100%;
+    flex-shrink: 0; /* Não encolhe */
+}
+
+.toolbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--grey);
+    min-width: 0;
+    width: 100%;
+}
+
+.toolbar-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark);
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ============================================================================
+   Filtros
+   ============================================================================ */
+
+.despesas__filters {
+    padding: 0;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) auto;
+    gap: 16px;
+    align-items: end;
+    min-width: 0;
+    width: 100%;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+/* ============================================================================
+   Tabela
+   ============================================================================ */
+
+.despesas__table-section {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 0;
+    margin-top: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+    flex: 1; /* Ocupa espaço restante */
+    min-height: 0; /* Permite scroll interno */
+    max-height: 100%; /* Não excede altura do container */
+}
+
+/* Scrollbar customizada */
+.despesas__table-section::-webkit-scrollbar {
+    width: 8px; /* Largura para scrollbar vertical */
+    height: 8px; /* Altura para scrollbar horizontal */
+}
+
+.despesas__table-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.despesas__table-section::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.despesas__table-section::-webkit-scrollbar-thumb:hover {
+    background: #667eea;
+}
+
+.despesas__table-section .orders {
+    padding: 0;
+    margin: 0;
+}
+
+.despesas__table-section .orders .header {
+    display: none; /* Remover header duplicado */
+}
+
+.table-container {
+    border-radius: 12px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.despesas-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin: 0;
+    table-layout: fixed;
+}
+
+.despesas-table thead {
+    background: linear-gradient(135deg, var(--primary) 0%, #667eea 100%);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.despesas-table th {
+    padding: 8px 10px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    white-space: nowrap !important;
+    color: white !important;
+    border: none !important;
+    border-bottom: none !important;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Larguras específicas das colunas */
+.despesas-table th:nth-child(1),
+.despesas-table td:nth-child(1) {
+    width: 10%;
+    min-width: 100px;
+}
+
+.despesas-table th:nth-child(2),
+.despesas-table td:nth-child(2) {
+    width: 25%;
+    min-width: 180px;
+}
+
+.despesas-table th:nth-child(3),
+.despesas-table td:nth-child(3) {
+    width: 25%;
+    min-width: 180px;
+}
+
+.despesas-table th:nth-child(4),
+.despesas-table td:nth-child(4) {
+    width: 12%;
+    min-width: 100px;
+}
+
+.despesas-table th:nth-child(5),
+.despesas-table td:nth-child(5) {
+    width: 15%;
+    min-width: 110px;
+}
+
+.despesas-table th:nth-child(6),
+.despesas-table td:nth-child(6) {
+    width: 13%;
+    min-width: 80px;
+}
+
+.despesas-table th.text-right {
+    text-align: right !important;
+}
+
+.despesas-table th.text-center {
+    text-align: center !important;
+}
+
+.despesas-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+    transition: background 0.2s;
+}
+
+.despesas-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.despesas-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.despesas-table td {
+    padding: 8px 10px !important;
+    font-size: 0.8125rem !important;
+    color: var(--dark) !important;
+    vertical-align: middle !important;
+    border: none !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Truncar texto das colunas longas */
+.despesas-table td:nth-child(2),
+.despesas-table td:nth-child(3) {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.despesas-table td.text-right {
+    text-align: right !important;
+    font-weight: 600 !important;
+    color: var(--primary) !important;
+}
+
+.despesas-table td.text-center {
+    text-align: center !important;
+}
+
+.despesas-table th:last-child,
+.despesas-table td:last-child {
+    width: 13%;
+    min-width: 80px;
+    max-width: 100px;
+}
+
+.table-empty {
+    padding: 40px 20px !important;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--dark-grey);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    opacity: 0.3;
+    color: var(--primary);
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+/* ============================================================================
+   Status Badges
+   ============================================================================ */
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.status-badge.pendente {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+    box-shadow: 0 2px 4px rgba(133, 100, 4, 0.1);
+}
+
+.status-badge.confirmada {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+    box-shadow: 0 2px 4px rgba(6, 95, 70, 0.1);
+}
+
+.status-badge.cancelada {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    box-shadow: 0 2px 4px rgba(153, 27, 27, 0.1);
+}
+
+/* ============================================================================
+   Ações na Tabela
+   ============================================================================ */
+
+.table-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-actions .btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.table-actions .btn--small {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.table-actions .btn i {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ============================================================================
+   Modal
+   ============================================================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3000 !important;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal--show {
+    display: flex !important;
+}
+
+.modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 3001 !important;
+}
+
+.modal__content {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 3002 !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 2px solid var(--grey);
+    background: linear-gradient(135deg, var(--primary) 0%, #667eea 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+.modal__header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+}
+
+.modal__close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.modal__close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.modal__body {
+    padding: 24px;
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 2px solid var(--grey);
+    background: #f8f9fa;
+    border-radius: 0 0 16px 16px;
+}
+
+/* ============================================================================
+   Autocomplete
+   ============================================================================ */
+
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--grey);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.autocomplete-suggestions.show {
+    display: block;
+}
+
+.autocomplete-suggestion {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--grey);
+    transition: background 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.autocomplete-suggestion:hover {
+    background: #f8f9fa;
+}
+
+.autocomplete-suggestion:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-suggestion.selected {
+    background: #e3f2fd;
+}
+
+.autocomplete-suggestion-name {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.autocomplete-suggestion-nif {
+    font-size: 0.875rem;
+    color: var(--dark-grey);
+}
+
+/* ============================================================================
+   Formulário no Modal
+   ============================================================================ */
+
+.modal__body .form-group {
+    margin-bottom: 20px;
+}
+
+.modal__body .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.modal__body .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--dark);
+}
+
+.modal__body .form-help {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8125rem;
+    color: var(--dark-grey);
+}
+
+/* ============================================================================
+   Responsividade
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+    .filters-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .filter-actions {
+        grid-column: 1 / -1;
+    }
+    
+    .despesas-table th {
+        padding: 10px 12px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .despesas-table td {
+        padding: 10px 12px !important;
+        font-size: 0.8125rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .despesas__toolbar-section {
+        padding: 12px 16px;
+        overflow-x: hidden;
+    }
+    
+    .toolbar-header {
+        margin-bottom: 12px;
+    }
+    
+    .toolbar-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .toolbar-actions .btn {
+        width: 100%;
+    }
+    
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-actions {
+        grid-column: 1;
+    }
+    
+    .filter-actions .btn {
+        width: 100%;
+    }
+    
+    .despesas-table th {
+        padding: 6px 8px !important;
+        font-size: 0.7rem !important;
+        color: white !important;
+    }
+    
+    .despesas-table td {
+        padding: 6px 8px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* Ajustar larguras em telas menores */
+    .despesas-table th:nth-child(1),
+    .despesas-table td:nth-child(1) {
+        width: 12%;
+        min-width: 80px;
+    }
+    
+    .despesas-table th:nth-child(2),
+    .despesas-table td:nth-child(2) {
+        width: 22%;
+        min-width: 120px;
+    }
+    
+    .despesas-table th:nth-child(3),
+    .despesas-table td:nth-child(3) {
+        width: 22%;
+        min-width: 120px;
+    }
+    
+    .despesas-table th:nth-child(4),
+    .despesas-table td:nth-child(4) {
+        width: 12%;
+        min-width: 80px;
+    }
+    
+    .despesas-table th:nth-child(5),
+    .despesas-table td:nth-child(5) {
+        width: 15%;
+        min-width: 90px;
+    }
+    
+    .despesas-table th:nth-child(6),
+    .despesas-table td:nth-child(6) {
+        width: 17%;
+        min-width: 70px;
+    }
+    
+    .table-actions {
+        flex-direction: row;
+        gap: 4px;
+    }
+    
+    .table-actions .btn {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+    }
+    
+    .modal__content {
+        width: 95%;
+        margin: 10px auto;
+    }
+    
+    .modal__body .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .despesas-table {
+        font-size: 0.75rem;
+    }
+    
+    .despesas-table th {
+        padding: 8px;
+        font-size: 0.7rem;
+    }
+    
+    .despesas-table td {
+        padding: 8px;
+    }
+}

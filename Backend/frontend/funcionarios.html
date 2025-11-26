@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/rubricas.css">
+    <title>Funcionários - Sistema Contabil</title>
+</head>
+<body>
+    <div class="content">
+        <main>
+            <!-- Toolbar com Filtros e Ações -->
+            <div class="rubricas__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Cadastro de Funcionários</h1>
+                    <div class="toolbar-actions">
+                        <span class="tooltip-container">
+                            <button id="btnNovoFuncionario" class="btn btn--primary">
+                                <i class='bx bx-plus'></i> Novo Funcionário
+                            </button>
+                            <span class="tooltip tooltip--bottom">Criar novo funcionário<br/>Adiciona um novo funcionário ao sistema</span>
+                        </span>
+                        <span class="tooltip-container">
+                            <button id="btnAtualizar" class="btn btn--secondary">
+                                <i class='bx bx-refresh'></i> Atualizar
+                            </button>
+                            <span class="tooltip tooltip--bottom">Atualizar lista<br/>Recarrega todos os funcionários</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="rubricas__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group filter-group--full">
+                            <label for="searchInput" class="filter-label">Buscar</label>
+                            <input type="text" 
+                                   id="searchInput" 
+                                   class="form-control" 
+                                   placeholder="Buscar por nome, categoria ou departamento..."
+                                   aria-label="Buscar funcionários">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabela de Funcionários -->
+            <div class="rubricas__table-section">
+                <div class="table-container">
+                    <table class="rubricas-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Departamento</th>
+                                <th>Estado</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="funcionariosBody">
+                            <tr>
+                                <td colspan="5" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-group'></i>
+                                        <p>Carregando funcionários...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Criar/Editar Funcionário -->
+    <div class="modal" id="funcionarioModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal__overlay" onclick="closeModal('funcionarioModal')"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="modalTitle">Novo Funcionário</h2>
+                <button class="modal__close" onclick="closeModal('funcionarioModal')" aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+            <form id="funcionarioForm">
+                <input type="hidden" id="funcionarioId">
+                
+                <div class="form-group">
+                    <label for="nome" class="form-label">Nome Completo *</label>
+                    <input type="text" 
+                           id="nome" 
+                           class="form-control" 
+                           required 
+                           autocomplete="off"
+                           aria-required="true"
+                           placeholder="Ex: João Silva">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <input type="text" 
+                               id="categoria" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Ex: Técnico, Administrativo">
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <input type="text" 
+                               id="departamento" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Ex: TI, RH, Financeiro">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" 
+                               id="email" 
+                               class="form-control" 
+                               autocomplete="email"
+                               placeholder="Ex: funcionario@exemplo.com"
+                               aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-help">
+                            Email é necessário apenas se desejar criar usuário automaticamente.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="contacto" class="form-label">Contacto</label>
+                        <input type="text" 
+                               id="contacto" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Ex: +258 84 123 4567">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="emailWarning" style="display: none;">
+                    <div class="alert alert--warning">
+                        <strong>⚠️ Aviso:</strong> Email ausente ou inválido — usuário não será criado automaticamente.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" 
+                               id="criarUsuario" 
+                               checked>
+                        <span>Criar usuário automaticamente</span>
+                    </label>
+                    <small class="form-help">
+                        Um usuário será criado automaticamente para este funcionário.
+                    </small>
+                </div>
+                
+                <div class="modal__footer">
+                    <span class="tooltip-container">
+                        <button type="button" 
+                                class="btn btn--secondary" 
+                                onclick="closeModal('funcionarioModal')">
+                            Cancelar
+                        </button>
+                        <span class="tooltip tooltip--top">Cancelar<br/>Fechar o modal sem salvar alterações</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <button type="submit" class="btn btn--primary">
+                            Salvar
+                        </button>
+                        <span class="tooltip tooltip--top" id="salvarTooltip">Salvar funcionário<br/>Criar ou atualizar o funcionário no sistema</span>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/funcionarios.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                initLayout('funcionarios');
+            }
+        });
+    </script>
+</body>
+</html>

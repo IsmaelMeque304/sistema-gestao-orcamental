@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disposição Orçamental - Sistema Contabil</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="container">
+        <!-- Layout de Duas Colunas -->
+        <div class="two-column-layout">
+            <!-- Coluna Esquerda: República e Informações -->
+            <div class="left-column">
+                <div class="left-content">
+                    <div class="logo-container">
+                        <img src="img/republic.png" alt="Brasão de Moçambique" class="logo">
+                    </div>
+                    <div class="org-info">
+                        <h1>República de Moçambique</h1>
+                        <h2>Província de Sofala</h2>
+                        <h3>Serviço Provincial de Infra-estruturas</h3>
+                        <h4>Departamento de Administração e Recursos Humanos</h4>
+                        <h5>Repartição de Administração e Finanças</h5>
+                    </div>
+                    <div class="code-container">
+                        <span class="code-label">Código:</span>
+                        <span class="code-value" id="orgCode">47H001241</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Card de Disposição Orçamental -->
+            <div class="right-column">
+                <div class="right-content">
+                    <div class="loading-overlay" id="loadingOverlay">
+                        <div class="spinner"></div>
+                        <p>Carregando disposição orçamental...</p>
+                    </div>
+                    
+                    <div class="error-message" id="errorMessage" style="display: none;"></div>
+                    
+                    <!-- Seção Disposição Orçamental -->
+                    <div class="dotacao-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <i class='bx bx-wallet'></i>
+                                Disposição Orçamental
+                            </h2>
+                            <div class="header-right-controls">
+                                <div class="sse-status" id="sseStatus">
+                                    <i class='bx bx-wifi'></i>
+                                    <span>Conexão SSE:</span>
+                                    <span class="sse-status-text" id="sseStatusText">Conectando...</span>
+                                </div>
+                                <div class="exercicio-selector-main">
+                                    <label for="exercicioSelectMain">Exercício:</label>
+                                    <select id="exercicioSelectMain" class="form-select-main">
+                                        <!-- Preenchido via JS -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grid de Cards -->
+                        <div class="cards-grid" id="cardsGrid">
+                            <!-- Cards serão inseridos aqui via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
+

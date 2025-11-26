@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/rubricas.css">
+    <title>Configurar Dotação Global - Sistema Contabil</title>
+</head>
+<body>
+    <div class="content">
+        <main>
+            <!-- Toolbar com Título e Ações -->
+            <div class="rubricas__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Configurar Dotação Global</h1>
+                    <div class="toolbar-actions">
+                        <span class="tooltip-container">
+                            <button id="btnAtualizar" class="btn btn--secondary">
+                                <i class='bx bx-refresh'></i> Atualizar
+                            </button>
+                            <span class="tooltip tooltip--bottom">Atualizar dados<br/>Recarrega a dotação e movimentos do exercício selecionado</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="rubricas__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="exercicioSelector" class="filter-label">Exercício</label>
+                            <select id="exercicioSelector" class="form-control" aria-label="Selecionar exercício">
+                                <!-- Preenchido via JS -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KPIs -->
+            <div style="margin-bottom: 20px;">
+                <ul class="insights">
+                    <li>
+                        <i class='bx bx-wallet'></i>
+                        <span class="info">
+                            <h3 id="kpiValorAnual">0,00 MZN</h3>
+                            <p>Valor Anual</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class='bx bx-check-circle'></i>
+                        <span class="info">
+                            <h3 id="kpiSaldo">0,00 MZN</h3>
+                            <p>Saldo Disponível</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class='bx bx-lock-alt'></i>
+                        <span class="info">
+                            <h3 id="kpiReservado">0,00 MZN</h3>
+                            <p>Reservado</p>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Seção de Formulários -->
+            <div class="dotacao__forms-section">
+                <!-- Formulário de Dotação -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2><i class='bx bx-edit'></i> Definir Dotação Anual</h2>
+                    </div>
+                    <form id="dotacaoForm">
+                        <div class="form-group">
+                            <label for="valorAnual" class="form-label">Valor Anual (MZN) *</label>
+                            <input type="text" 
+                                   id="valorAnual" 
+                                   class="form-control money-input" 
+                                   required 
+                                   aria-required="true"
+                                   placeholder="0.00"
+                                   pattern="[0-9 ]+\.[0-9]{2}">
+                        </div>
+                        <button type="submit" class="btn btn--primary">
+                            <i class='bx bx-save'></i> Salvar Dotação
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Formulário de Reserva -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2><i class='bx bx-lock'></i> Criar Reserva</h2>
+                    </div>
+                    <form id="reservaForm">
+                        <div class="form-group">
+                            <label for="reservaValor" class="form-label">Valor a Reservar (MZN) *</label>
+                            <input type="text" 
+                                   id="reservaValor" 
+                                   class="form-control money-input" 
+                                   required 
+                                   aria-required="true"
+                                   placeholder="0.00"
+                                   pattern="[0-9 ]+\.[0-9]{2}">
+                        </div>
+                        <div class="form-group">
+                            <label for="reservaDescricao" class="form-label">Descrição</label>
+                            <input type="text" 
+                                   id="reservaDescricao" 
+                                   class="form-control" 
+                                   placeholder="Ex: Reserva para projeto X">
+                        </div>
+                        <button type="submit" class="btn btn--primary">
+                            <i class='bx bx-plus'></i> Criar Reserva
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Tabela de Movimentos -->
+            <div class="rubricas__table-section">
+                <div class="section-header" style="margin-bottom: 16px;">
+                    <h2><i class='bx bx-history'></i> Movimentos Recentes</h2>
+                    <a href="dotacao_mov.html" class="btn btn--secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        <i class='bx bx-link-external'></i> Ver Histórico Completo
+                    </a>
+                </div>
+                <div class="table-container">
+                    <table class="rubricas-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th class="text-right">Valor</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movimentosBody">
+                            <tr>
+                                <td colspan="4" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-history'></i>
+                                        <p>Carregando movimentos...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/setup_dotacao.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                initLayout('dotacao');
+            }
+        });
+    </script>
+</body>
+</html>

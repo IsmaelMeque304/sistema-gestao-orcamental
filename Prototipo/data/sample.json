@@ -1,0 +1,162 @@
+{
+  "rubricas": [
+    {
+      "codigo": "47/H000/1.1.2.1.01",
+      "designacao": "Ajudas de Custo dentro do Pais",
+      "dotacao": 7303380.00,
+      "gasto": 1498800.00
+    },
+    {
+      "codigo": "47/H000/1.1.2.1.99",
+      "designacao": "Outras Despesas Pessoal",
+      "dotacao": 3900000.00,
+      "gasto": 571994.01
+    },
+    {
+      "codigo": "1.2.1",
+      "designacao": "Bens",
+      "dotacao": 2169440.00,
+      "gasto": 0.00
+    },
+    {
+      "codigo": "1.2.2",
+      "designacao": "Servicos",
+      "dotacao": 1500000.00,
+      "gasto": 750000.00
+    },
+    {
+      "codigo": "1.3.1",
+      "designacao": "Manutencao e Reparacoes",
+      "dotacao": 800000.00,
+      "gasto": 120000.00
+    }
+  ],
+  "despesas": [
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.01",
+      "fornecedor": "Lucia de Fatima M Braz",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 00",
+      "ordem_pagamento": "OP20220000124",
+      "valor": 6000.00,
+      "data": "2024-03-05"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.01",
+      "fornecedor": "Sergio Cacholote Nareia",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 00",
+      "ordem_pagamento": "OP20220000123",
+      "valor": 6000.00,
+      "data": "2024-03-05"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.01",
+      "fornecedor": "Sergio Manuel Gonsalo",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 74",
+      "ordem_pagamento": "OP20220000131",
+      "valor": 31800.00,
+      "data": "2024-03-12"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.01",
+      "fornecedor": "Maria Joana Silva",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 85",
+      "ordem_pagamento": "OP20220000145",
+      "valor": 12000.00,
+      "data": "2024-03-18"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.01",
+      "fornecedor": "Joao Carlos Mendes",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 92",
+      "ordem_pagamento": "OP20220000156",
+      "valor": 8500.00,
+      "data": "2024-03-25"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.99",
+      "fornecedor": "Empresa de Recursos Humanos Lda",
+      "requisicao": "RH/2024/001",
+      "justificativo": "Fatura nº 12345",
+      "ordem_pagamento": "OP20220000201",
+      "valor": 250000.00,
+      "data": "2024-02-15"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.99",
+      "fornecedor": "Consultoria Empresarial SA",
+      "requisicao": "CONS/2024/003",
+      "justificativo": "Fatura nº 67890",
+      "ordem_pagamento": "OP20220000215",
+      "valor": 180000.00,
+      "data": "2024-02-28"
+    },
+    {
+      "codigo_rubrica": "47/H000/1.1.2.1.99",
+      "fornecedor": "Formacao Profissional Ltda",
+      "requisicao": "FORM/2024/007",
+      "justificativo": "Fatura nº 54321",
+      "ordem_pagamento": "OP20220000230",
+      "valor": 141994.01,
+      "data": "2024-03-10"
+    },
+    {
+      "codigo_rubrica": "1.2.2",
+      "fornecedor": "Servicos de Limpeza Pro",
+      "requisicao": "SLP/2024/001",
+      "justificativo": "Fatura nº 98765",
+      "ordem_pagamento": "OP20220000301",
+      "valor": 150000.00,
+      "data": "2024-01-15"
+    },
+    {
+      "codigo_rubrica": "1.2.2",
+      "fornecedor": "Seguranca Total SA",
+      "requisicao": "SEG/2024/002",
+      "justificativo": "Fatura nº 13579",
+      "ordem_pagamento": "OP20220000315",
+      "valor": 300000.00,
+      "data": "2024-02-01"
+    },
+    {
+      "codigo_rubrica": "1.2.2",
+      "fornecedor": "Manutencao Informatica Lda",
+      "requisicao": "IT/2024/005",
+      "justificativo": "Fatura nº 24680",
+      "ordem_pagamento": "OP20220000325",
+      "valor": 200000.00,
+      "data": "2024-02-15"
+    },
+    {
+      "codigo_rubrica": "1.2.2",
+      "fornecedor": "Consultoria Juridica Advogados",
+      "requisicao": "JUR/2024/001",
+      "justificativo": "Fatura nº 11223",
+      "ordem_pagamento": "OP20220000340",
+      "valor": 100000.00,
+      "data": "2024-03-01"
+    },
+    {
+      "codigo_rubrica": "1.3.1",
+      "fornecedor": "Reparacoes e Manutencao Geral",
+      "requisicao": "MAN/2024/003",
+      "justificativo": "Fatura nº 99887",
+      "ordem_pagamento": "OP20220000401",
+      "valor": 80000.00,
+      "data": "2024-01-20"
+    },
+    {
+      "codigo_rubrica": "1.3.1",
+      "fornecedor": "Equipamentos Industriais SA",
+      "requisicao": "EQU/2024/001",
+      "justificativo": "Fatura nº 55443",
+      "ordem_pagamento": "OP20220000415",
+      "valor": 40000.00,
+      "data": "2024-02-10"
+    }
+  ]
+}

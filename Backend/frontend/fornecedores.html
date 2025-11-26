@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/rubricas.css">
+    <title>Fornecedores - Sistema Contabil</title>
+</head>
+<body>
+    <div class="content">
+        <main>
+            <!-- Toolbar com Filtros e Ações -->
+            <div class="rubricas__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Cadastro de Fornecedores</h1>
+                    <div class="toolbar-actions">
+                        <span class="tooltip-container">
+                            <button id="btnNovoFornecedor" class="btn btn--primary">
+                                <i class='bx bx-plus'></i> Novo Fornecedor
+                            </button>
+                            <span class="tooltip tooltip--bottom">Criar novo fornecedor<br/>Adiciona um novo fornecedor ao sistema</span>
+                        </span>
+                        <span class="tooltip-container">
+                            <button id="btnAtualizar" class="btn btn--secondary">
+                                <i class='bx bx-refresh'></i> Atualizar
+                            </button>
+                            <span class="tooltip tooltip--bottom">Atualizar lista<br/>Recarrega todos os fornecedores</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="rubricas__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group filter-group--full">
+                            <label for="searchInput" class="filter-label">Buscar</label>
+                            <input type="text" 
+                                   id="searchInput" 
+                                   class="form-control" 
+                                   placeholder="Buscar por nome, tipo, NIF ou código..."
+                                   aria-label="Buscar fornecedores">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabela de Fornecedores -->
+            <div class="rubricas__table-section">
+                <div class="table-container">
+                    <table class="rubricas-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th>NIF</th>
+                                <th>Contacto</th>
+                                <th>Código Interno</th>
+                                <th>Estado</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fornecedoresBody">
+                            <tr>
+                                <td colspan="7" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-store-alt'></i>
+                                        <p>Carregando fornecedores...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Criar/Editar Fornecedor -->
+    <div class="modal" id="fornecedorModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal__overlay" onclick="closeModal('fornecedorModal')"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="modalTitle">Novo Fornecedor</h2>
+                <button class="modal__close" onclick="closeModal('fornecedorModal')" aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+            <div id="modalError" class="modal__error" style="display: none;"></div>
+            <form id="fornecedorForm">
+                <input type="hidden" id="fornecedorId">
+                
+                <div class="form-group">
+                    <label for="nome" class="form-label">Nome Completo / Razão Social *</label>
+                    <input type="text" 
+                           id="nome" 
+                           class="form-control" 
+                           required 
+                           autocomplete="off"
+                           aria-required="true"
+                           placeholder="Ex: Empresa XYZ Ltda">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipo" class="form-label">Tipo *</label>
+                        <select id="tipo" class="form-control" required aria-required="true">
+                            <option value="">Selecione...</option>
+                            <option value="pessoa_singular">Pessoa Singular</option>
+                            <option value="pessoa_coletiva">Pessoa Coletiva</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nif" class="form-label">NIF</label>
+                        <input type="text" 
+                               id="nif" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Ex: 123456789">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" 
+                               id="email" 
+                               class="form-control" 
+                               autocomplete="email"
+                               placeholder="Ex: fornecedor@exemplo.com"
+                               aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-help">
+                            Email é necessário apenas se desejar criar usuário automaticamente.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="contacto" class="form-label">Contacto</label>
+                        <input type="text" 
+                               id="contacto" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Ex: +258 84 123 4567">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="codigo_interno" class="form-label">Código Interno</label>
+                        <input type="text" 
+                               id="codigo_interno" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Ex: FORN-001">
+                    </div>
+                    <div class="form-group">
+                        <label for="endereco" class="form-label">Endereço</label>
+                        <input type="text" 
+                               id="endereco" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Endereço completo">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="emailWarning" style="display: none;">
+                    <div class="alert alert--warning">
+                        <strong>⚠️ Aviso:</strong> Email ausente ou inválido — usuário não será criado automaticamente.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" 
+                               id="criarUsuario" 
+                               checked>
+                        <span>Criar usuário automaticamente</span>
+                    </label>
+                    <small class="form-help">
+                        Um usuário será criado automaticamente para este fornecedor.
+                    </small>
+                </div>
+                
+                <div class="modal__footer">
+                    <span class="tooltip-container">
+                        <button type="button" 
+                                class="btn btn--secondary" 
+                                onclick="closeModal('fornecedorModal')">
+                            Cancelar
+                        </button>
+                        <span class="tooltip tooltip--top">Cancelar<br/>Fechar o modal sem salvar alterações</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <button type="submit" class="btn btn--primary">
+                            Salvar
+                        </button>
+                        <span class="tooltip tooltip--top" id="salvarTooltip">Salvar fornecedor<br/>Criar ou atualizar o fornecedor no sistema</span>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/fornecedores.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                initLayout('fornecedores');
+            }
+        });
+    </script>
+</body>
+</html>

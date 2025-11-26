@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/rubricas.css">
+    <title>Rubricas - Sistema Contabil</title>
+</head>
+<body>
+    <div class="content">
+        <main>
+            <!-- Toolbar com Filtros e Ações -->
+            <div class="rubricas__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Cadastro de Rubricas</h1>
+                    <div class="toolbar-actions">
+                        <span class="tooltip-container">
+                            <button id="btnNovaRubrica" class="btn btn--primary">
+                                <i class='bx bx-plus'></i> Nova Rubrica
+                            </button>
+                            <span class="tooltip tooltip--bottom">Criar nova rubrica<br/>Adiciona uma nova rubrica raiz ao sistema</span>
+                        </span>
+                        <span class="tooltip-container">
+                            <button id="btnAtualizar" class="btn btn--secondary">
+                                <i class='bx bx-refresh'></i> Atualizar
+                            </button>
+                            <span class="tooltip tooltip--bottom">Atualizar lista<br/>Recarrega todas as rubricas do exercício selecionado</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="rubricas__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="exercicioSelector" class="filter-label">Exercício</label>
+                            <select id="exercicioSelector" class="form-control" aria-label="Selecionar exercício">
+                                <!-- Preenchido via JS -->
+                            </select>
+                        </div>
+                        <div class="filter-group filter-group--full">
+                            <label for="searchInput" class="filter-label">Buscar</label>
+                            <input type="text" 
+                                   id="searchInput" 
+                                   class="form-control" 
+                                   placeholder="Buscar por código ou designação..."
+                                   aria-label="Buscar rubricas">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabela de Rubricas -->
+            <div class="rubricas__table-section">
+                <div class="table-container">
+                    <table id="rubricasTable" class="rubricas-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Designação</th>
+                                <th>Tipo</th>
+                                <th>Nível</th>
+                                <th class="text-right">Dotação Calculada</th>
+                                <th>Estado</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rubricasBody">
+                            <tr>
+                                <td colspan="7" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-list-ul'></i>
+                                        <p>Carregando rubricas...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Criar Subrubricas em Lote (CSV) -->
+    <div class="modal" id="subrubricaBatchModal" role="dialog" aria-labelledby="subrubricaBatchModalTitle" aria-hidden="true">
+        <div class="modal__overlay" onclick="closeModal('subrubricaBatchModal')"></div>
+        <div class="modal__content modal__content--large">
+            <div class="modal__header">
+                <h2 id="subrubricaBatchModalTitle">Criar Subrubricas em Lote</h2>
+                <button class="modal__close" onclick="closeModal('subrubricaBatchModal')" aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+            <form id="subrubricaBatchForm">
+                <input type="hidden" id="batchParentId">
+                <input type="hidden" id="batchExercicio">
+                
+                <div class="form-group">
+                    <label class="form-label">Rubrica Pai</label>
+                    <input type="text" 
+                           id="batchParentInfo" 
+                           class="form-control" 
+                           readonly
+                           disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label for="batchTipo" class="form-label">Tipo *</label>
+                    <select id="batchTipo" class="form-control" required aria-required="true">
+                        <option value="">Selecione...</option>
+                        <option value="despesa">Despesa</option>
+                        <option value="receita">Receita</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="batchRawText" class="form-label">Colar Texto Bruto (Opcional)</label>
+                    <textarea id="batchRawText" 
+                              class="form-control" 
+                              rows="5"
+                              placeholder="Cole aqui o texto com código e designação separados por tabulação ou espaços:&#10;47/H000/1.2.1.0.01	Combustivel Lubrificante&#10;47/H000/1.2.1.0.02	Material p/ M. Rep. De B. Imóveis"></textarea>
+                    <small class="form-help">
+                        Cole texto com código e designação separados por tabulação ou espaços. Clique em "Organizar" para converter automaticamente.
+                    </small>
+                    <button type="button" 
+                            class="btn btn--info btn--small" 
+                            onclick="organizarTextoBatch()"
+                            style="margin-top: 8px;">
+                        Organizar Texto
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="batchCsv" class="form-label">Dados CSV *</label>
+                    <textarea id="batchCsv" 
+                              class="form-control" 
+                              rows="10"
+                              placeholder="Formato: codigo,designacao&#10;Exemplo:&#10;47/H000/1.1.2.1.01,Ajudas de Custo&#10;47/H000/1.1.2.1.02,Subsídio de Combustível"
+                              required
+                              aria-required="true"></textarea>
+                    <small class="form-help">
+                        Formato: <code>codigo,designacao</code> (uma linha por rubrica).<br>
+                        <strong>Nota:</strong> Rubricas não têm dotação própria. A dotação é gerenciada em Execução Mensal.<br>
+                        <strong>Dica:</strong> Use o campo acima para colar texto bruto e clicar em "Organizar".
+                    </small>
+                </div>
+                
+                <div id="batchPreview" class="batch-preview" style="display: none;">
+                    <h3>Preview (validação local)</h3>
+                    <div id="batchPreviewContent" class="batch-preview-content"></div>
+                </div>
+                
+                <div id="batchReport" class="batch-report" style="display: none;">
+                    <h3>Relatório de Criação</h3>
+                    <div id="batchReportContent" class="batch-report-content"></div>
+                </div>
+                
+                <div class="modal__footer">
+                    <button type="button" 
+                            class="btn btn--secondary" 
+                            onclick="closeModal('subrubricaBatchModal')">
+                        Cancelar
+                    </button>
+                    <button type="button" 
+                            class="btn btn--info" 
+                            onclick="validarBatchCSV()">
+                        Validar CSV
+                    </button>
+                    <button type="submit" class="btn btn--primary">
+                        Criar em Lote
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Criar Subrubrica -->
+    <div class="modal" id="subrubricaModal" role="dialog" aria-labelledby="subrubricaModalTitle" aria-hidden="true">
+        <div class="modal__overlay" onclick="closeModal('subrubricaModal')"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="subrubricaModalTitle">Nova Subrubrica</h2>
+                <button class="modal__close" onclick="closeModal('subrubricaModal')" aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+            <form id="subrubricaForm">
+                <input type="hidden" id="subrubricaParentId">
+                <input type="hidden" id="subrubricaExercicio">
+                <input type="hidden" id="subrubricaNivel">
+                
+                <div class="form-group">
+                    <label class="form-label">Rubrica Pai</label>
+                    <input type="text" 
+                           id="subrubricaParentInfo" 
+                           class="form-control" 
+                           readonly
+                           disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subrubricaCodigo" class="form-label">Código *</label>
+                    <input type="text" 
+                           id="subrubricaCodigo" 
+                           class="form-control" 
+                           required 
+                           autocomplete="off"
+                           aria-required="true"
+                           placeholder="Ex: 47/H000/1.1.2.1"
+                           aria-describedby="subrubricaCodigoHelp">
+                    <small id="subrubricaCodigoHelp" class="form-help">Código único da subrubrica</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subrubricaDesignacao" class="form-label">Designação *</label>
+                    <input type="text" 
+                           id="subrubricaDesignacao" 
+                           class="form-control" 
+                           required 
+                           autocomplete="off"
+                           aria-required="true"
+                           placeholder="Ex: Subcategoria específica">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subrubricaTipo" class="form-label">Tipo *</label>
+                    <select id="subrubricaTipo" class="form-control" required aria-required="true">
+                        <option value="">Selecione...</option>
+                        <option value="despesa">Despesa</option>
+                        <option value="receita">Receita</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="subrubricaDotacaoInicialGroup">
+                    <label for="subrubricaDotacaoInicial" class="form-label">Dotação Inicial (MZN)</label>
+                    <input type="text" 
+                           id="subrubricaDotacaoInicial" 
+                           class="form-control money-input" 
+                           autocomplete="off"
+                           placeholder="0.00"
+                           pattern="[0-9 ]+\.[0-9]{2}"
+                           aria-describedby="subrubricaDotacaoInicialHelp">
+                    <small id="subrubricaDotacaoInicialHelp" class="form-help">
+                        Dotação inicial anual para esta rubrica folha. Rubricas pai não têm dotação inicial (calculada automaticamente).
+                    </small>
+                </div>
+                
+                <div class="modal__footer">
+                    <span class="tooltip-container">
+                        <button type="button" 
+                                class="btn btn--info" 
+                                onclick="abrirModalSubrubricaBatchFromModal(); event.stopPropagation();">
+                            + Sub (Múltiplas)
+                        </button>
+                        <span class="tooltip tooltip--top">Criar múltiplas subrubricas<br/>Importar várias subrubricas de uma vez via CSV</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <button type="button" 
+                                class="btn btn--secondary" 
+                                onclick="closeModal('subrubricaModal')">
+                            Cancelar
+                        </button>
+                        <span class="tooltip tooltip--top">Cancelar<br/>Fechar o modal sem salvar alterações</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <button type="submit" class="btn btn--primary">
+                            Salvar Subrubrica
+                        </button>
+                        <span class="tooltip tooltip--top">Salvar subrubrica<br/>Criar a subrubrica e recalcular a dotação do pai</span>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Criar/Editar Rubrica -->
+    <div class="modal" id="rubricaModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal__overlay" onclick="closeModal('rubricaModal')"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="modalTitle">Nova Rubrica</h2>
+                <button class="modal__close" onclick="closeModal('rubricaModal')" aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+            <form id="rubricaForm">
+                <input type="hidden" id="rubricaId">
+                
+                <div class="form-group">
+                    <label for="codigo" class="form-label">Código *</label>
+                    <input type="text" 
+                           id="codigo" 
+                           class="form-control" 
+                           required 
+                           autocomplete="off"
+                           aria-required="true"
+                           placeholder="Ex: 47/H000/1.1.2.1.01"
+                           aria-describedby="codigoHelp">
+                    <small id="codigoHelp" class="form-help">Código único da rubrica</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="designacao" class="form-label">Designação *</label>
+                    <input type="text" 
+                           id="designacao" 
+                           class="form-control" 
+                           required 
+                           autocomplete="off"
+                           aria-required="true"
+                           placeholder="Ex: Demais Despesas com Pessoal">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipo" class="form-label">Tipo *</label>
+                        <select id="tipo" class="form-control" required aria-required="true">
+                            <option value="">Selecione...</option>
+                            <option value="despesa">Despesa</option>
+                            <option value="receita">Receita</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exercicioForm" class="form-label">Exercício *</label>
+                        <input type="number" 
+                               id="exercicioForm" 
+                               class="form-control" 
+                               required 
+                               min="2020" 
+                               max="2100"
+                               aria-required="true">
+                    </div>
+                </div>
+                
+                <input type="hidden" id="nivel" value="1">
+                
+                <div class="form-group" id="rubricaDotacaoInicialGroup" style="display: none;">
+                    <label for="rubricaDotacaoInicial" class="form-label">Dotação Inicial (MZN)</label>
+                    <input type="text" 
+                           id="rubricaDotacaoInicial" 
+                           class="form-control money-input" 
+                           autocomplete="off"
+                           placeholder="0.00"
+                           pattern="[0-9 ]+\.[0-9]{2}"
+                           aria-describedby="rubricaDotacaoInicialHelp">
+                    <small id="rubricaDotacaoInicialHelp" class="form-help">
+                        Dotação inicial anual para esta rubrica folha. Rubricas pai não têm dotação inicial (calculada automaticamente).
+                    </small>
+                </div>
+                
+                <div class="modal__footer">
+                    <span class="tooltip-container">
+                        <button type="button" 
+                                class="btn btn--secondary" 
+                                onclick="closeModal('rubricaModal')">
+                            Cancelar
+                        </button>
+                        <span class="tooltip tooltip--top">Cancelar<br/>Fechar o modal sem salvar alterações</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <button type="submit" class="btn btn--primary">
+                            Salvar
+                        </button>
+                        <span class="tooltip tooltip--top" id="salvarTooltip">Salvar rubrica<br/>Criar ou atualizar a rubrica no sistema</span>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                initLayout('rubricas');
+            }
+        });
+    </script>
+    <script src="js/rubricas.js"></script>
+</body>
+</html>

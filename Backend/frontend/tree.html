@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árvore de Decomposição - Rubricas Orçamentárias</title>
+    <link rel="stylesheet" href="css/tree.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <h1>
+                    <i class='bx bx-git-branch'></i>
+                    Árvore de Decomposição de Rubricas
+                </h1>
+                <div class="header-controls">
+                    <div class="sse-status" id="sseStatus">
+                        <i class='bx bx-wifi'></i>
+                        <span>Conexão SSE:</span>
+                        <span class="sse-status-text" id="sseStatusText">Conectando...</span>
+                    </div>
+                    <div class="search-container">
+                        <i class='bx bx-search search-icon'></i>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            class="search-input" 
+                            placeholder="Buscar rubrica..."
+                            autocomplete="off"
+                        >
+                        <button id="clearSearch" class="btn-clear" title="Limpar busca" style="display: none;">
+                            <i class='bx bx-x'></i>
+                        </button>
+                    </div>
+                    <div class="exercicio-selector">
+                        <label for="exercicioSelect">Exercício:</label>
+                        <select id="exercicioSelect" class="form-select">
+                            <!-- Preenchido via JS -->
+                        </select>
+                    </div>
+                    <button id="btnRefresh" class="btn-refresh" title="Atualizar dados">
+                        <i class='bx bx-refresh'></i>
+                    </button>
+                    <a href="index.html" class="btn-login" title="Acesso à página de gestão">
+                        <i class='bx bx-lock-alt'></i>
+                        <span>Gestão</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="breadcrumb" id="breadcrumb">
+                <button class="breadcrumb-home" id="breadcrumbHome" title="Voltar ao início">
+                    <i class='bx bx-home'></i>
+                </button>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-item active">Todas as Rubricas</span>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+                <p>Carregando rubricas...</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            
+            <!-- Grid de Cards -->
+            <div class="cards-grid" id="cardsGrid">
+                <!-- Cards serão inseridos aqui via JavaScript -->
+            </div>
+        </main>
+
+        <!-- Tooltip -->
+        <div class="tooltip" id="tooltip" style="display: none;"></div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/tree.js"></script>
+</body>
+</html>

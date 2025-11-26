@@ -1,0 +1,468 @@
+/* ============================================================================
+   Tabela Mensal - Design Consistente com Sistema (Layout Dashboard)
+   ============================================================================ */
+
+/* Desabilitar scroll no body/main */
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.content main {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: calc(100vh - 56px) !important;
+    max-height: calc(100vh - 56px) !important;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* ============================================================================
+   Toolbar (Filtros + Ações)
+   ============================================================================ */
+
+.tabela-mensal__toolbar-section {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.toolbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--grey);
+    min-width: 0;
+    width: 100%;
+}
+
+.toolbar-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark);
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ============================================================================
+   Filtros
+   ============================================================================ */
+
+.tabela-mensal__filters {
+    padding: 0;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    align-items: end;
+    min-width: 0;
+    width: 100%;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sse-status {
+    display: none; /* Oculto visualmente, mas mantém funcionalidade */
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--light);
+    border: 1px solid var(--grey);
+    transition: all 0.3s ease;
+}
+
+.sse-status i {
+    font-size: 1.1rem;
+}
+
+.sse-status span:first-of-type {
+    color: var(--dark-grey);
+}
+
+.sse-status-text {
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.sse-status.sse-online {
+    background: var(--light-success);
+    border-color: var(--success);
+}
+
+.sse-status.sse-online .sse-status-text {
+    color: var(--success);
+}
+
+.sse-status.sse-online i {
+    color: var(--success);
+}
+
+.sse-status.sse-offline {
+    background: var(--light-danger);
+    border-color: var(--danger);
+}
+
+.sse-status.sse-offline .sse-status-text {
+    color: var(--danger);
+}
+
+.sse-status.sse-offline i {
+    color: var(--danger);
+}
+
+/* ============================================================================
+   Table Section
+   ============================================================================ */
+
+.tabela-mensal__table-section {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 0;
+    margin-top: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+    flex: 1;
+    min-height: 0;
+    max-height: 100%;
+    position: relative;
+}
+
+.tabela-mensal__table-section::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.tabela-mensal__table-section::-webkit-scrollbar-track {
+    background: var(--grey);
+    border-radius: 4px;
+}
+
+.tabela-mensal__table-section::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.tabela-mensal__table-section::-webkit-scrollbar-thumb:hover {
+    background: #1565C0;
+}
+
+.form-control {
+    padding: 12px 18px;
+    border: 2px solid var(--grey);
+    border-radius: 16px;
+    font-size: 0.95rem;
+    background: var(--light);
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1);
+}
+
+/* Botões agora usam as classes do common.css (btn, btn--success, btn--secondary) */
+
+/* ============================================================================
+   Main Content (ajustado para layout do dashboard)
+   ============================================================================ */
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(246, 246, 249, 0.95);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    z-index: 10;
+    border-radius: 12px;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--light-primary);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message {
+    padding: 24px;
+    margin-bottom: 20px;
+    background: var(--light-danger);
+    color: var(--danger);
+    border-radius: 16px;
+    border-left: 4px solid var(--danger);
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.2);
+}
+
+/* ============================================================================
+   Tabela
+   ============================================================================ */
+
+.table-container {
+    border-radius: 12px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: white;
+    margin: 0;
+    table-layout: fixed;
+}
+
+.data-table thead {
+    background: var(--light);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.data-table th {
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--dark);
+    border-bottom: 2px solid var(--grey);
+    white-space: nowrap;
+}
+
+.data-table th.col-rubrica {
+    min-width: 300px;
+    position: sticky;
+    left: 0;
+    background: var(--light);
+    z-index: 11;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.data-table th.col-month {
+    min-width: 100px;
+    text-align: right;
+}
+
+.data-table th.col-total {
+    min-width: 120px;
+    text-align: right;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.data-table tbody tr {
+    border-bottom: 1px solid var(--grey);
+    transition: background 0.2s ease;
+}
+
+.data-table tbody tr:hover:not(.rubrica-principal) {
+    background: var(--light);
+}
+
+.data-table td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.data-table td.col-rubrica {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 9;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+}
+
+.data-table tbody tr:hover:not(.rubrica-principal) td.col-rubrica {
+    background: var(--light);
+}
+
+/* Apenas rubricas principais (nível 0) em azul */
+.data-table tbody tr.rubrica-principal {
+    background: var(--light-primary) !important;
+    border-bottom: 2px solid var(--primary) !important;
+}
+
+.data-table tbody tr.rubrica-principal td {
+    background: var(--light-primary) !important;
+}
+
+.data-table tbody tr.rubrica-principal td.col-rubrica {
+    background: var(--light-primary) !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+}
+
+.data-table td.col-month,
+.data-table td.col-total {
+    text-align: right;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 0.85rem;
+}
+
+.data-table td.col-total {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Hierarquia visual - recuo por nível */
+.rubrica-level-0 {
+    padding-left: 12px !important;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.rubrica-level-1 {
+    padding-left: 32px !important;
+    font-weight: 600;
+}
+
+.rubrica-level-2 {
+    padding-left: 52px !important;
+}
+
+.rubrica-level-3 {
+    padding-left: 72px !important;
+}
+
+.rubrica-level-4 {
+    padding-left: 92px !important;
+}
+
+.rubrica-level-5 {
+    padding-left: 112px !important;
+}
+
+/* Valores zerados */
+.value-zero {
+    color: var(--dark-grey);
+    opacity: 0.5;
+}
+
+/* ============================================================================
+   Responsividade
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 16px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header h1 {
+        font-size: 1.25rem;
+    }
+
+    .header h1 i {
+        font-size: 1.5rem;
+    }
+
+    .toolbar-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .sse-status {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        order: -1;
+    }
+    
+    .toolbar-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .table-container {
+        padding: 10px;
+    }
+
+    .data-table {
+        font-size: 0.8rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 6px;
+    }
+
+    .data-table th.col-rubrica {
+        min-width: 200px;
+    }
+
+    .data-table th.col-month {
+        min-width: 70px;
+    }
+}
+

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/despesas.css">
+    <title>Lançamento de Despesas - Sistema Contabil</title>
+</head>
+<body>
+    <!-- Sidebar e Navbar serão inseridos via layout.js -->
+    
+    <div class="content">
+        <main>
+            <!-- Toolbar com Filtros e Ações -->
+            <div class="despesas__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Lançamento de Despesas</h1>
+                    <div class="toolbar-actions">
+                        <button id="btnNovaDespesa" class="btn btn--primary">
+                            <i class='bx bx-plus'></i> Nova Despesa
+                        </button>
+                        <button id="btnAtualizar" class="btn btn--secondary">
+                            <i class='bx bx-refresh'></i> Atualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="despesas__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="filterExercicio" class="filter-label">Exercício</label>
+                            <select id="filterExercicio" class="form-control">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterMes" class="filter-label">Mês</label>
+                            <select id="filterMes" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterStatus" class="filter-label">Status</label>
+                            <select id="filterStatus" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="pendente">Pendente</option>
+                                <option value="confirmada">Confirmada</option>
+                                <option value="cancelada">Cancelada</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterRubrica" class="filter-label">Rubrica</label>
+                            <select id="filterRubrica" class="form-control">
+                                <option value="">Todas</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterFornecedor" class="filter-label">Fornecedor</label>
+                            <input type="text" 
+                                   id="filterFornecedor" 
+                                   class="form-control" 
+                                   placeholder="Buscar fornecedor...">
+                        </div>
+                        <div class="filter-actions">
+                            <button id="btnLimparFiltros" class="btn btn--secondary">
+                                <i class='bx bx-x'></i> Limpar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabela de Despesas -->
+            <div class="despesas__table-section">
+                <div class="table-container">
+                    <table id="despesasTable" class="despesas-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Rubrica</th>
+                                <th>Fornecedor</th>
+                                <th class="text-right">Valor</th>
+                                <th>Status</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="despesasBody">
+                            <tr>
+                                <td colspan="6" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-receipt'></i>
+                                        <p>Carregando despesas...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Criar/Editar Despesa -->
+    <div class="modal" id="despesaModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal__overlay" onclick="closeModal('despesaModal')"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="modalTitle">Nova Despesa</h2>
+                <button class="modal__close" onclick="closeModal('despesaModal')" aria-label="Fechar modal">
+                    &times;
+                </button>
+            </div>
+            <div class="modal__body">
+                <form id="despesaForm">
+                    <input type="hidden" id="despesaId">
+                    
+                    <div class="form-group">
+                        <label for="rubrica_id" class="form-label">Rubrica *</label>
+                        <select id="rubrica_id" 
+                                class="form-control" 
+                                required 
+                                aria-required="true"
+                                aria-describedby="rubricaHelp">
+                            <option value="">Selecione uma rubrica...</option>
+                        </select>
+                        <small id="rubricaHelp" class="form-help">
+                            Apenas rubricas folha podem receber despesas.
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fornecedor_id" class="form-label">Fornecedor</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" 
+                                   id="fornecedor_search" 
+                                   class="form-control" 
+                                   autocomplete="off"
+                                   placeholder="Digite para buscar fornecedor...">
+                            <input type="hidden" id="fornecedor_id">
+                            <div id="fornecedor_suggestions" class="autocomplete-suggestions"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="data_emissao" class="form-label">Data da Despesa *</label>
+                            <input type="date" 
+                                   id="data_emissao" 
+                                   class="form-control" 
+                                   required 
+                                   aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="valor" class="form-label">Valor *</label>
+                            <input type="text" 
+                                   id="valor" 
+                                   class="form-control money-input" 
+                                   required 
+                                   aria-required="true"
+                                   placeholder="0.00"
+                                   pattern="[0-9 ]+\.[0-9]{2}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="justificativo" class="form-label">Justificativo</label>
+                        <input type="text" 
+                               id="justificativo" 
+                               class="form-control" 
+                               autocomplete="off"
+                               placeholder="Descrição da despesa">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="requisicao" class="form-label">Requisição</label>
+                            <input type="text" 
+                                   id="requisicao" 
+                                   class="form-control" 
+                                   autocomplete="off"
+                                   placeholder="Número da requisição">
+                        </div>
+                        <div class="form-group">
+                            <label for="ordem_pagamento" class="form-label">Ordem de Pagamento</label>
+                            <input type="text" 
+                                   id="ordem_pagamento" 
+                                   class="form-control" 
+                                   autocomplete="off"
+                                   placeholder="Número da ordem">
+                        </div>
+                    </div>
+                    
+                    <div class="modal__footer">
+                        <button type="button" 
+                                class="btn btn--secondary" 
+                                onclick="closeModal('despesaModal')">
+                            <i class='bx bx-x'></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn--primary">
+                            <i class='bx bx-save'></i> Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script>
+        // Inicializar layout com página ativa
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                initLayout('despesas');
+            }
+        });
+    </script>
+    <script src="js/despesas.js"></script>
+</body>
+</html>

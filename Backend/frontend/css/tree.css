@@ -1,0 +1,794 @@
+/* ============================================================================
+   Visualização de Rubricas - Design Super Moderno (Tech Style)
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --light: #f6f6f9;
+    --primary: #1976D2;
+    --light-primary: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #363949;
+    --danger: #D32F2F;
+    --light-danger: #FECDD3;
+    --warning: #FBC02D;
+    --light-warning: #FFF2C6;
+    --success: #388E3C;
+    --light-success: #BBF7D0;
+    
+    /* Usar apenas cores do sistema - sem gradientes extras */
+    --glass-bg: var(--light);
+    --glass-border: var(--grey);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--grey);
+    min-height: 100vh;
+    color: var(--dark);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Remover partículas de fundo para manter consistência com Dashboard */
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================================
+   Header - Glassmorphism
+   ============================================================================ */
+
+.header {
+    background: var(--light);
+    border-bottom: 1px solid var(--grey);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    position: sticky;
+    top: 0;
+}
+
+.header-top {
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: -0.5px;
+}
+
+.header h1 i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.sse-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--light);
+    border: 1px solid var(--grey);
+    transition: all 0.3s ease;
+}
+
+.sse-status i {
+    font-size: 1.1rem;
+}
+
+.sse-status span:first-of-type {
+    color: var(--dark-grey);
+}
+
+.sse-status-text {
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.sse-status.sse-online {
+    background: var(--light-success);
+    border-color: var(--success);
+}
+
+.sse-status.sse-online .sse-status-text {
+    color: var(--success);
+}
+
+.sse-status.sse-online i {
+    color: var(--success);
+}
+
+.sse-status.sse-offline {
+    background: var(--light-danger);
+    border-color: var(--danger);
+}
+
+.sse-status.sse-offline .sse-status-text {
+    color: var(--danger);
+}
+
+.sse-status.sse-offline i {
+    color: var(--danger);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--dark-grey);
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.search-input {
+    padding: 12px 48px 12px 48px;
+    border: 2px solid var(--grey);
+    border-radius: 16px;
+    font-size: 0.95rem;
+    width: 320px;
+    background: var(--light);
+    color: var(--dark);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1);
+}
+
+.btn-clear {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--dark-grey);
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+.btn-clear:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--dark);
+    transform: rotate(90deg);
+}
+
+.exercicio-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exercicio-selector label {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.9rem;
+}
+
+.form-select {
+    padding: 12px 18px;
+    border: 2px solid var(--grey);
+    border-radius: 16px;
+    font-size: 0.95rem;
+    background: var(--light);
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1);
+}
+
+.btn-refresh,
+.btn-login {
+    padding: 12px 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.4);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-refresh {
+    font-size: 1.3rem;
+}
+
+.btn-refresh:hover {
+    transform: translateY(-2px) rotate(180deg);
+    box-shadow: 0 8px 24px rgba(25, 118, 210, 0.5);
+    background: var(--primary);
+    opacity: 0.9;
+}
+
+.btn-refresh:active {
+    transform: translateY(0) rotate(180deg);
+}
+
+.btn-login {
+    background: var(--dark);
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(54, 57, 73, 0.5);
+    background: #2a2d3a;
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.btn-login i {
+    font-size: 1.2rem;
+}
+
+/* ============================================================================
+   Breadcrumb - Moderno
+   ============================================================================ */
+
+.breadcrumb {
+    padding: 16px 40px;
+    border-top: 1px solid var(--grey);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-home {
+    background: var(--primary);
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+    font-weight: 600;
+}
+
+.breadcrumb-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+    background: var(--primary);
+    opacity: 0.9;
+}
+
+.breadcrumb-item {
+    color: var(--dark);
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    background: transparent;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.breadcrumb-item:hover:not(.active) {
+    background: var(--light-primary);
+    color: var(--primary);
+}
+
+.breadcrumb-item.active {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer; /* Permite clicar mesmo quando ativo para voltar */
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.breadcrumb-item.active:hover {
+    background: #1565C0;
+    opacity: 0.9;
+}
+
+.breadcrumb-separator {
+    color: var(--dark-grey);
+    margin: 0 4px;
+    font-weight: 600;
+}
+
+/* ============================================================================
+   Main Content
+   ============================================================================ */
+
+.main-content {
+    flex: 1;
+    position: relative;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    gap: 24px;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--light-primary);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message {
+    padding: 24px;
+    margin: 20px;
+    background: var(--light-danger);
+    color: var(--danger);
+    border-radius: 16px;
+    border-left: 4px solid var(--danger);
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.2);
+}
+
+/* ============================================================================
+   Cards Grid - Super Moderno
+   ============================================================================ */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+}
+
+.card {
+    background: var(--light);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Cores por nível - igual aos KPIs do Dashboard */
+.card-level-0:hover {
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.card-level-1:hover {
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.card-level-2:hover {
+    box-shadow: 0 4px 12px rgba(56, 142, 60, 0.3);
+}
+
+.card-level-3:hover {
+    box-shadow: 0 4px 12px rgba(251, 192, 45, 0.3);
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.card-header > .bx {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.card:hover .card-header > .bx {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Ícones por nível usando cores do sistema */
+.card-level-0 .card-header > .bx {
+    background: var(--light-primary);
+    color: var(--primary);
+}
+
+.card-level-1 .card-header > .bx {
+    background: var(--light-primary);
+    color: var(--primary);
+}
+
+.card-level-2 .card-header > .bx {
+    background: var(--light-success);
+    color: var(--success);
+}
+
+.card-level-3 .card-header > .bx {
+    background: var(--light-warning);
+    color: var(--warning);
+}
+
+.card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.4;
+    margin: 0;
+    letter-spacing: -0.2px;
+}
+
+.card-badge {
+    background: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+    letter-spacing: 0.3px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-code {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.card-code span {
+    color: var(--dark-grey);
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.card-value {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card-value-number {
+    color: var(--dark);
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.8px;
+}
+
+.card-value-words {
+    color: var(--dark-grey);
+    font-weight: 300;
+    font-size: 0.85rem;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+.card-expand-btn {
+    background: var(--primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.4rem;
+    min-width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+    font-weight: 600;
+}
+
+.card-expand-btn:hover {
+    transform: translateX(4px) scale(1.1);
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+    background: var(--primary);
+    opacity: 0.9;
+}
+
+.card-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--grey);
+}
+
+.card-hint {
+    font-size: 0.9rem;
+    color: var(--dark-grey);
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* ============================================================================
+   Empty State
+   ============================================================================ */
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--light);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state i {
+    font-size: 5rem;
+    margin-bottom: 24px;
+    color: var(--primary);
+    opacity: 0.6;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+/* ============================================================================
+   Tooltip - Moderno
+   ============================================================================ */
+
+.tooltip {
+    position: absolute;
+    background: var(--dark);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 320px;
+}
+
+.tooltip-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--light-primary);
+    font-size: 1rem;
+}
+
+.tooltip-item {
+    margin: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.tooltip-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.tooltip-value {
+    font-weight: 700;
+    color: white;
+}
+
+/* ============================================================================
+   Responsivo
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .search-input {
+        width: 200px;
+    }
+
+    .header-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .sse-status {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        order: -1; /* Colocar primeiro em mobile */
+    }
+
+    .breadcrumb {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .header-top {
+        padding: 20px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 15px 0;
+    }
+    
+    .card {
+        padding: 16px;
+    }
+    
+    .card-header {
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .card-header > .bx {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .card-title {
+        font-size: 0.95rem;
+    }
+    
+    .card-value span {
+        font-size: 20px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-input {
+        width: 150px;
+        font-size: 0.85rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-value span {
+        font-size: 24px;
+    }
+}
+
+/* Animações de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(n+6) { animation-delay: 0.6s; }

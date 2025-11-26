@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários - Sistema Contabil</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👥 Usuários</h1>
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div class="nav-links">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="rubricas.html">Rubricas</a>
+                    <a href="despesas.html">Despesas</a>
+                    <a href="funcionarios.html">Funcionários</a>
+                    <a href="fornecedores.html">Fornecedores</a>
+                    <a href="setup_dotacao.html">Dotação</a>
+                    <a href="#" onclick="logout(); return false;">Sair</a>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openCreateModal()">+ Novo Usuário</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="error" id="error"></div>
+        <div class="success" id="success"></div>
+        
+        <!-- Filtros -->
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Buscar por nome ou username..." onkeyup="filterTable()">
+            <select id="statusFilter" onchange="filterTable()">
+                <option value="">Todos os status</option>
+                <option value="true">Ativos</option>
+                <option value="false">Inativos</option>
+            </select>
+        </div>
+        
+        <!-- Tabela -->
+        <div class="table-container">
+            <div class="loading" id="loading">Carregando usuários...</div>
+            <table id="usuariosTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Contacto</th>
+                        <th>Status</th>
+                        <th>Criado em</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="usuariosTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal Criar/Editar -->
+    <div class="modal" id="usuarioModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Novo Usuário</h2>
+                <button class="modal-close" onclick="closeModal('usuarioModal')">&times;</button>
+            </div>
+            <form id="usuarioForm" onsubmit="saveUsuario(event)">
+                <input type="hidden" id="usuarioId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="username">Username *</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome *</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group" id="senhaGroup">
+                        <label for="senha">Senha * <small>(mínimo 8 caracteres)</small></label>
+                        <input type="password" id="senha" minlength="8">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contacto">Contacto</label>
+                        <input type="text" id="contacto">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuit">NUIT</label>
+                        <input type="text" id="nuit">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <textarea id="endereco"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="activo" checked>
+                        Usuário ativo
+                    </label>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('usuarioModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/usuarios.js"></script>
+</body>
+</html>
+

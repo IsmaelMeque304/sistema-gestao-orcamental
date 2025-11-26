@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Mensal - Sistema Contabil</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/dashboard_new.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/tabela-mensal.css">
+</head>
+<body>
+    <!-- Sidebar e Navbar serão inseridos via layout.js -->
+    
+    <div class="content">
+        <main>
+            <!-- Toolbar com Filtros e Ações -->
+            <div class="tabela-mensal__toolbar-section">
+                <div class="toolbar-header">
+                    <h1>Tabela Mensal de Execução Orçamentária</h1>
+                    <div class="toolbar-actions">
+                        <button id="btnViewFull" class="btn btn--primary" title="Visualizar tabela inteira">
+                            <i class='bx bx-expand'></i>
+                            <span>Visualizar Tabela Inteira</span>
+                        </button>
+                        <button id="btnExport" class="btn btn--success" title="Baixar tabela em Excel">
+                            <i class='bx bx-download'></i>
+                            <span>Excel</span>
+                        </button>
+                        <button id="btnRefresh" class="btn btn--secondary" title="Atualizar dados">
+                            <i class='bx bx-refresh'></i>
+                            <span>Atualizar</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tabela-mensal__filters">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="exercicioSelect" class="filter-label">Exercício</label>
+                            <select id="exercicioSelect" class="form-control" aria-label="Selecionar exercício">
+                                <!-- Preenchido via JS -->
+                            </select>
+                        </div>
+                        <div class="filter-group" style="display: none;">
+                            <div class="sse-status" id="sseStatus">
+                                <i class='bx bx-wifi'></i>
+                                <span>Conexão SSE:</span>
+                                <span class="sse-status-text" id="sseStatusText">Conectando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabela de Execução Mensal -->
+            <div class="tabela-mensal__table-section">
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="spinner"></div>
+                    <p>Carregando dados...</p>
+                </div>
+                
+                <div class="error-message" id="errorMessage" style="display: none;"></div>
+                
+                <div class="table-container">
+                    <table class="data-table" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th class="col-rubrica">Rubrica</th>
+                                <th class="col-month">Jan</th>
+                                <th class="col-month">Fev</th>
+                                <th class="col-month">Mar</th>
+                                <th class="col-month">Abr</th>
+                                <th class="col-month">Mai</th>
+                                <th class="col-month">Jun</th>
+                                <th class="col-month">Jul</th>
+                                <th class="col-month">Ago</th>
+                                <th class="col-month">Set</th>
+                                <th class="col-month">Out</th>
+                                <th class="col-month">Nov</th>
+                                <th class="col-month">Dez</th>
+                                <th class="col-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colspan="14" class="table-empty">
+                                    <div class="empty-state">
+                                        <i class='bx bx-table'></i>
+                                        <p>Carregando dados...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Biblioteca para exportar Excel com suporte a estilos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/layout.js"></script>
+    <script>
+        // Verificar autenticação e inicializar layout
+        if (checkAuth()) {
+            initLayout('tabela-mensal');
+        }
+    </script>
+    <script src="js/tabela-mensal.js"></script>
+</body>
+</html>
+

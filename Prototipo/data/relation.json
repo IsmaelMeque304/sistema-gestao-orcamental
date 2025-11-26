@@ -1,0 +1,306 @@
+{
+  "47/H000/1.1.2.1.01": [
+    {
+      "fornecedor": "Sérgio Manuel Gonçalo",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 77",
+      "ordem_pagamento": "OP202200000196",
+      "valor": 147840
+    },
+    {
+      "fornecedor": "Raul Mário Francisco Maite",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 34",
+      "ordem_pagamento": "OP202200000139",
+      "valor": 85008
+    },
+    {
+      "fornecedor": "Lucia de Fatima M Braz",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 00",
+      "ordem_pagamento": "OP20220000124",
+      "valor": 36960
+    },
+    {
+      "fornecedor": "Sergio Cacholote Nareia",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 00",
+      "ordem_pagamento": "OP20220000123",
+      "valor": 36960
+    },
+    {
+      "fornecedor": "Maria Joana Silva",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 85",
+      "ordem_pagamento": "OP20220000145",
+      "valor": 73920
+    },
+    {
+      "fornecedor": "Joao Carlos Mendes",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 92",
+      "ordem_pagamento": "OP20220000156",
+      "valor": 52360
+    },
+    {
+      "fornecedor": "Ana Paula Santos",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 105",
+      "ordem_pagamento": "OP20220000167",
+      "valor": 92400
+    },
+    {
+      "fornecedor": "Carlos Eduardo Lima",
+      "requisicao": "/OF/2024",
+      "justificativo": "Guia nº 112",
+      "ordem_pagamento": "OP20220000178",
+      "valor": 135520
+    }
+  ],
+  "47/H000/1.2.1.0.01": [
+    {
+      "fornecedor": "Posto de Combustível Central",
+      "requisicao": "COMB/2024/001",
+      "justificativo": "Fatura nº 12345",
+      "ordem_pagamento": "OP20220000201",
+      "valor": 924000
+    },
+    {
+      "fornecedor": "Gasolina Premium Ltda",
+      "requisicao": "COMB/2024/002",
+      "justificativo": "Fatura nº 12346",
+      "ordem_pagamento": "OP20220000202",
+      "valor": 1232000
+    },
+    {
+      "fornecedor": "Oleos e Lubrificantes SA",
+      "requisicao": "LUB/2024/001",
+      "justificativo": "Fatura nº 12347",
+      "ordem_pagamento": "OP20220000203",
+      "valor": 462000
+    },
+    {
+      "fornecedor": "Combustíveis do Norte",
+      "requisicao": "COMB/2024/003",
+      "justificativo": "Fatura nº 12348",
+      "ordem_pagamento": "OP20220000204",
+      "valor": 1108800
+    }
+  ],
+  "47/H000/1.1.2.1.99": [
+    {
+      "fornecedor": "Empresa de Recursos Humanos Lda",
+      "requisicao": "RH/2024/001",
+      "justificativo": "Fatura nº 12345",
+      "ordem_pagamento": "OP20220000201",
+      "valor": 1540000
+    },
+    {
+      "fornecedor": "Consultoria Empresarial SA",
+      "requisicao": "CONS/2024/003",
+      "justificativo": "Fatura nº 67890",
+      "ordem_pagamento": "OP20220000215",
+      "valor": 1108800
+    },
+    {
+      "fornecedor": "Formação Profissional Ltda",
+      "requisicao": "FORM/2024/007",
+      "justificativo": "Fatura nº 54321",
+      "ordem_pagamento": "OP20220000230",
+      "valor": 874661
+    },
+    {
+      "fornecedor": "Gestão de Pessoal SA",
+      "requisicao": "GP/2024/002",
+      "justificativo": "Fatura nº 98765",
+      "ordem_pagamento": "OP20220000245",
+      "valor": 1971200
+    }
+  ],
+  "1.2.1": [
+    {
+      "fornecedor": "Material de Escritório Central",
+      "requisicao": "MAT/2024/001",
+      "justificativo": "Fatura nº 11111",
+      "ordem_pagamento": "OP20220000301",
+      "valor": 154000
+    }
+  ],
+  "1.2.2": [
+    {
+      "fornecedor": "Servicos de Limpeza Pro",
+      "requisicao": "SLP/2024/001",
+      "justificativo": "Fatura nº 98765",
+      "ordem_pagamento": "OP20220000301",
+      "valor": 924000
+    },
+    {
+      "fornecedor": "Seguranca Total SA",
+      "requisicao": "SEG/2024/002",
+      "justificativo": "Fatura nº 13579",
+      "ordem_pagamento": "OP20220000315",
+      "valor": 1848000
+    },
+    {
+      "fornecedor": "Manutencao Informatica Lda",
+      "requisicao": "IT/2024/005",
+      "justificativo": "Fatura nº 24680",
+      "ordem_pagamento": "OP20220000325",
+      "valor": 1232000
+    },
+    {
+      "fornecedor": "Consultoria Juridica Advogados",
+      "requisicao": "JUR/2024/001",
+      "justificativo": "Fatura nº 11223",
+      "ordem_pagamento": "OP20220000340",
+      "valor": 616000
+    }
+  ],
+  "1.3.1": [
+    {
+      "fornecedor": "Reparacoes e Manutencao Geral",
+      "requisicao": "MAN/2024/003",
+      "justificativo": "Fatura nº 99887",
+      "ordem_pagamento": "OP20220000401",
+      "valor": 492800
+    },
+    {
+      "fornecedor": "Equipamentos Industriais SA",
+      "requisicao": "EQU/2024/001",
+      "justificativo": "Fatura nº 55443",
+      "ordem_pagamento": "OP20220000415",
+      "valor": 246400
+    }
+  ],
+  "1.2.1.1": [
+    {
+      "fornecedor": "Papelaria Central",
+      "requisicao": "PAP/2024/001",
+      "justificativo": "Fatura nº 22333",
+      "ordem_pagamento": "OP20220000501",
+      "valor": 308000
+    },
+    {
+      "fornecedor": "Material de Escritório Plus",
+      "requisicao": "MEP/2024/002",
+      "justificativo": "Fatura nº 33444",
+      "ordem_pagamento": "OP20220000502",
+      "valor": 215600
+    },
+    {
+      "fornecedor": "Suprimentos de Escritório",
+      "requisicao": "SE/2024/003",
+      "justificativo": "Fatura nº 44555",
+      "ordem_pagamento": "OP20220000503",
+      "valor": 246400
+    }
+  ],
+  "1.2.1.2": [
+    {
+      "fornecedor": "Tecnologia Informática SA",
+      "requisicao": "TI/2024/001",
+      "justificativo": "Fatura nº 55666",
+      "ordem_pagamento": "OP20220000601",
+      "valor": 1848000
+    },
+    {
+      "fornecedor": "Equipamentos de Informática Ltda",
+      "requisicao": "EI/2024/002",
+      "justificativo": "Fatura nº 66777",
+      "ordem_pagamento": "OP20220000602",
+      "valor": 1540000
+    },
+    {
+      "fornecedor": "Sistemas e Redes Informáticas",
+      "requisicao": "SRI/2024/003",
+      "justificativo": "Fatura nº 77888",
+      "ordem_pagamento": "OP20220000603",
+      "valor": 1232000
+    },
+    {
+      "fornecedor": "Software e Hardware Solutions",
+      "requisicao": "SHS/2024/004",
+      "justificativo": "Fatura nº 88999",
+      "ordem_pagamento": "OP20220000604",
+      "valor": 308000
+    }
+  ],
+  "1.2.2.1": [
+    {
+      "fornecedor": "Limpeza Profissional SA",
+      "requisicao": "LP/2024/001",
+      "justificativo": "Fatura nº 99000",
+      "ordem_pagamento": "OP20220000701",
+      "valor": 492800
+    },
+    {
+      "fornecedor": "Serviços de Limpeza Total",
+      "requisicao": "SLT/2024/002",
+      "justificativo": "Fatura nº 10111",
+      "ordem_pagamento": "OP20220000702",
+      "valor": 431200
+    }
+  ],
+  "1.2.2.2": [
+    {
+      "fornecedor": "Segurança Avançada Ltda",
+      "requisicao": "SA/2024/001",
+      "justificativo": "Fatura nº 20222",
+      "ordem_pagamento": "OP20220000801",
+      "valor": 1108800
+    },
+    {
+      "fornecedor": "Proteção e Vigilância SA",
+      "requisicao": "PV/2024/002",
+      "justificativo": "Fatura nº 30333",
+      "ordem_pagamento": "OP20220000802",
+      "valor": 1108800
+    }
+  ],
+  "1.4.1": [
+    {
+      "fornecedor": "Centro de Formação Profissional",
+      "requisicao": "CFP/2024/001",
+      "justificativo": "Fatura nº 40444",
+      "ordem_pagamento": "OP20220000901",
+      "valor": 739200
+    },
+    {
+      "fornecedor": "Instituto de Capacitação",
+      "requisicao": "IC/2024/002",
+      "justificativo": "Fatura nº 50555",
+      "ordem_pagamento": "OP20220000902",
+      "valor": 492800
+    },
+    {
+      "fornecedor": "Academia de Desenvolvimento",
+      "requisicao": "AD/2024/003",
+      "justificativo": "Fatura nº 60666",
+      "ordem_pagamento": "OP20220000903",
+      "valor": 616000
+    }
+  ],
+  "1.4.2": [
+    {
+      "fornecedor": "Agência de Viagens Central",
+      "requisicao": "AVC/2024/001",
+      "justificativo": "Fatura nº 70777",
+      "ordem_pagamento": "OP20220001001",
+      "valor": 462000
+    },
+    {
+      "fornecedor": "Transportes e Deslocações",
+      "requisicao": "TD/2024/002",
+      "justificativo": "Fatura nº 80888",
+      "ordem_pagamento": "OP20220001002",
+      "valor": 277200
+    },
+    {
+      "fornecedor": "Viagens Corporativas SA",
+      "requisicao": "VCS/2024/003",
+      "justificativo": "Fatura nº 90999",
+      "ordem_pagamento": "OP20220001003",
+      "valor": 184800
+    }
+  ]
+}
